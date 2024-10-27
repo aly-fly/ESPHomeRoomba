@@ -34,7 +34,7 @@ New Functions:
 
 See also the Roomba dashboard.yaml file for the Sensors and Control Buttons.
 
-[Roomba Dashboard](RoombaDashboard.png)
+[Roomba Dashboard](Roomba Dashboard.png)
 
 The control buttons are placed as button rows on an entities card, and use the tap action to call the command service of the roomba component:
 
