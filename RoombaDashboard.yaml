@@ -1,0 +1,188 @@
+views:
+  - title: Roomba
+    cards:
+      - type: entities
+        entities:
+          - entity: binary_sensor.roomba_local
+          - type: divider
+          - entity: sensor.roomba_roomba_activity
+          - entity: sensor.roomba_roomba_oi_mode
+          - entity: sensor.roomba_roomba_battery
+          - entity: sensor.roomba_roomba_capacity
+          - entity: sensor.roomba_roomba_charge
+          - entity: sensor.roomba_roomba_charging_state
+          - entity: sensor.roomba_roomba_current
+          - entity: sensor.roomba_roomba_drive_speed
+          - entity: sensor.roomba_roomba_temperature
+          - entity: sensor.roomba_roomba_voltage
+          - entity: sensor.roomba_roomba_main_brush_current
+          - entity: sensor.roomba_roomba_side_brush_current
+          - entity: binary_sensor.roomba_roomba_vacuum_state
+        title: Sensors
+        state_color: true
+      - type: entities
+        entities:
+          - type: buttons
+            entities:
+              - entity: input_button.blank
+                name: Passive
+                icon: mdi:robot
+                tap_action:
+                  action: call-service
+                  service: esphome.roomba_command
+                  data:
+                    command: passive
+                  target: {}
+              - entity: input_button.blank
+                icon: mdi:go-kart
+                name: Safe
+                tap_action:
+                  action: call-service
+                  service: esphome.roomba_command
+                  data:
+                    command: drive
+                  target: {}
+              - entity: input_button.blank
+                icon: mdi:robot
+                name: Wake Up
+                tap_action:
+                  action: call-service
+                  service: esphome.roomba_command
+                  data:
+                    command: wake_on_dock
+                  target: {}
+              - entity: input_button.blank
+                icon: mdi:robot
+                name: Reboot
+                tap_action:
+                  action: call-service
+                  service: esphome.roomba_command
+                  data:
+                    command: reset
+                  target: {}
+          - type: divider
+          - type: buttons
+            entities:
+              - entity: input_button.blank
+                name: Dock
+                icon: mdi:robot-vacuum-variant
+                tap_action:
+                  action: call-service
+                  service: esphome.roomba_command
+                  data:
+                    command: dock
+                  target: {}
+              - entity: input_button.blank
+                icon: mdi:arrow-up-bold
+                name: FWD
+                tap_action:
+                  action: call-service
+                  service: esphome.roomba_command
+                  data:
+                    command: go_forward
+                  target: {}
+              - entity: input_button.blank
+                icon: mdi:bell-circle
+                name: Locate
+                tap_action:
+                  action: call-service
+                  service: esphome.roomba_command
+                  data:
+                    command: locate
+                  target: {}
+          - type: buttons
+            entities:
+              - entity: input_button.blank
+                icon: mdi:arrow-left-bold
+                name: Left
+                tap_action:
+                  action: call-service
+                  service: esphome.roomba_command
+                  data:
+                    command: go_left
+                  target: {}
+              - entity: input_button.blank
+                icon: mdi:stop
+                name: STOP
+                tap_action:
+                  action: call-service
+                  service: esphome.roomba_command
+                  data:
+                    command: stop
+                  target: {}
+              - entity: input_button.blank
+                icon: mdi:arrow-right-bold
+                name: Right
+                tap_action:
+                  action: call-service
+                  service: esphome.roomba_command
+                  data:
+                    command: go_right
+                  target: {}
+          - type: buttons
+            entities:
+              - entity: input_button.blank
+                icon: mdi:rotate-left
+                name: Rotate L
+                tap_action:
+                  action: call-service
+                  service: esphome.roomba_command
+                  data:
+                    command: rotate_left
+                  target: {}
+              - entity: input_button.blank
+                icon: mdi:arrow-down-bold
+                name: REV
+                tap_action:
+                  action: call-service
+                  service: esphome.roomba_command
+                  data:
+                    command: go_reverse
+                  target: {}
+              - entity: input_button.blank
+                icon: mdi:rotate-right
+                name: Rotate R
+                tap_action:
+                  action: call-service
+                  service: esphome.roomba_command
+                  data:
+                    command: rotate_right
+                  target: {}
+          - type: divider
+          - type: buttons
+            entities:
+              - entity: input_button.blank
+                icon: mdi:rotate-right
+                name: Clean
+                tap_action:
+                  action: call-service
+                  service: esphome.roomba_command
+                  data:
+                    command: clean
+                  target: {}
+              - entity: input_button.blank
+                icon: mdi:rotate-right
+                name: Spot
+                tap_action:
+                  action: call-service
+                  service: esphome.roomba_command
+                  data:
+                    command: spot
+                  target: {}
+              - entity: switch.roomba_main_brush
+                icon: mdi:robot-vacuum
+                show_name: true
+                tap_action:
+                  action: toggle
+        title: Commands
+      - show_name: true
+        show_icon: true
+        type: button
+        tap_action:
+          action: url
+          url_path: http://roomba.local
+        name: Roomba Web Page
+        icon_height: 45px
+        icon: mdi:robot-vacuum
+        show_state: true
+        entity: binary_sensor.roomba_local
