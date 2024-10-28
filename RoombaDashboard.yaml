@@ -169,9 +169,9 @@ views:
                   data:
                     command: spot
                   target: {}
-              - entity: switch.roomba_main_brush
+              - entity: switch.vacuum
                 icon: mdi:robot-vacuum
-                show_name: true
+                name: Vacuum
                 tap_action:
                   action: toggle
         title: Commands
