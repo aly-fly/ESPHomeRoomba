@@ -1,0 +1,178 @@
+type: custom:android-tv-card
+rows:
+  - - passive
+    - safe
+    - reboot
+  - - dock
+    - forward
+    - wake
+  - - turnleft
+    - stop
+    - turnright
+  - - rotateleft
+    - reverse
+    - rotateright
+  - - clean
+    - spot
+    - vacuum
+custom_actions:
+  - type: button
+    name: safe
+    tap_action:
+      action: call-service
+      service: esphome.roomba_command
+      data:
+        command: safe
+      target: {}
+    icon: mdi:robot-vacuum
+    entity_id: sensor.roomba_roomba_oi_mode
+    label: Safe
+  - type: button
+    name: passive
+    tap_action:
+      action: call-service
+      service: esphome.roomba_command
+      data:
+        command: passive
+      target: {}
+    icon: mdi:robot-vacuum
+    entity_id: sensor.roomba_roomba_oi_mode
+    label: Passive
+  - type: button
+    name: wake
+    tap_action:
+      action: call-service
+      service: esphome.roomba_command
+      data:
+        command: wake
+      target: {}
+    icon: mdi:robot-vacuum
+    label: Wake
+  - type: button
+    name: dock
+    tap_action:
+      action: call-service
+      service: esphome.roomba_command
+      data:
+        command: dock
+      target: {}
+    icon: mdi:robot-vacuum-variant
+    label: Dock
+  - type: button
+    name: reboot
+    tap_action:
+      action: call-service
+      service: esphome.roomba_command
+      data:
+        command: reset
+      target: {}
+    icon: mdi:restart
+    label: Reboot
+  - type: button
+    name: forward
+    tap_action:
+      action: call-service
+      service: esphome.roomba_command
+      data:
+        command: go_forward
+      target: {}
+    icon: mdi:arrow-up-bold
+    label: Fwd
+  - type: button
+    name: turnleft
+    tap_action:
+      action: call-service
+      service: esphome.roomba_command
+      data:
+        command: go_left
+      target: {}
+    icon: mdi:arrow-left-top-bold
+    label: Turn Left
+  - type: button
+    name: stop
+    tap_action:
+      action: call-service
+      service: esphome.roomba_command
+      data:
+        command: stop
+      target: {}
+    icon: mdi:pause
+    label: Stop
+  - type: button
+    name: turnright
+    tap_action:
+      action: call-service
+      service: esphome.roomba_command
+      data:
+        command: go_right
+      target: {}
+    icon: mdi:arrow-right-top-bold
+    label: Turn Right
+  - type: button
+    name: rotateleft
+    tap_action:
+      action: call-service
+      service: esphome.roomba_command
+      data:
+        command: rotate_left
+      target: {}
+    icon: mdi:rotate-left
+    label: Rotate Left
+  - type: button
+    name: reverse
+    tap_action:
+      action: call-service
+      service: esphome.roomba_command
+      data:
+        command: go_reverse
+      target: {}
+    icon: mdi:arrow-down-bold
+    label: Reverse
+  - type: button
+    name: rotateright
+    tap_action:
+      action: call-service
+      service: esphome.roomba_command
+      data:
+        command: rotate_right
+      target: {}
+    icon: mdi:rotate-right
+    label: Rotate Right
+  - type: button
+    name: clean
+    tap_action:
+      action: call-service
+      service: esphome.roomba_command
+      data:
+        command: clean
+      target: {}
+    icon: mdi:robot-vacuum
+    label: Clean
+  - type: button
+    name: spot
+    tap_action:
+      action: call-service
+      service: esphome.roomba_command
+      data:
+        command: spot
+      target: {}
+    icon: mdi:robot-vacuum
+    label: Spot
+  - type: button
+    name: vacuum
+    tap_action:
+      action: toggle
+      target:
+        entity_id: switch.vacuum
+    show_state: true
+    icon: mdi:robot-vacuum
+    label: Vacuum
+    entity_id: switch.vacuum
+    double_tap_action:
+      action: none
+    hold_action:
+      action: none
+    autofill_entity_id: false
+custom_icons: []
+title: Commands
+
