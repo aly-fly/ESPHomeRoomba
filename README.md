@@ -34,11 +34,11 @@ New Functions:
 
 See also the Roomba dashboard.yaml file for the Sensors and Control Buttons.
 
-![Roomba Dashboard](Roomba Dashboard.png)
+![Roomba Dashboard](RoombaDashboard.png)
 
 A Dashboard using the HACS Universal Remote Card
 
-![Remote](remote.png)
+![Remote](Remote.png)
 
 The control buttons are placed as button rows on an entities card, and use the tap action to call the command service of the roomba component:
 
