@@ -82,93 +82,39 @@ sensor:
         unit_of_measurement: "V"
         icon: mdi:sine-wave
         accuracy_decimals: 2
-        filters:
-        - quantile:
-            window_size: 7
-            send_every: 4
-            send_first_at: 3
-            quantile: .9
-        - multiply: 0.001
       - name: "${name} current"
         unit_of_measurement: "A"
         icon: mdi:lightning-bolt
         accuracy_decimals: 3
-        filters:
-        - quantile:
-            window_size: 7
-            send_every: 4
-            send_first_at: 3
-            quantile: .9
-        - multiply: 0.001
       - name: "${name} charge"
         unit_of_measurement: "Ah"
         icon: mdi:battery-charging
         accuracy_decimals: 2
-        filters:
-        - quantile:
-            window_size: 7
-            send_every: 4
-            send_first_at: 3
-            quantile: .9
-        - multiply: 0.001
       - name: "${name} capacity"
         unit_of_measurement: "Ah"
         icon: mdi:battery
         accuracy_decimals: 2
-        filters:
-        - quantile:
-            window_size: 7
-            send_every: 4
-            send_first_at: 3
-            quantile: .9
-        - multiply: 0.001
       - name: "${name} battery"
         unit_of_measurement: "%"
         state_class: "measurement"
         device_class: battery
         icon: mdi:battery-outline
         accuracy_decimals: 0
-        filters:
-        - quantile:
-            window_size: 7
-            send_every: 4
-            send_first_at: 3
-            quantile: .9
       - name: "${name} temperature"
         unit_of_measurement: "°C"
         icon: mdi:thermometer
         accuracy_decimals: 0
-        filters:
-        - quantile:
-            window_size: 7
-            send_every: 4
-            send_first_at: 3
-            quantile: .9
       - name: "${name} drive speed"
         unit_of_measurement: "mm/s"
         accuracy_decimals: 0
       - name: "${name} main brush current"
         unit_of_measurement: "A"
         icon: mdi:lightning-bolt
-        accuracy_decimals: 3
-        filters:
-        - quantile:
-            window_size: 7
-            send_every: 4
-            send_first_at: 3
-            quantile: .9
-        - multiply: 0.001
+        accuracy_decimals: 2
       - name: "${name} side brush current"
         unit_of_measurement: "A"
         icon: mdi:lightning-bolt
-        accuracy_decimals: 3
-        filters:
-        - quantile:
-            window_size: 7
-            send_every: 4
-            send_first_at: 3
-            quantile: .9
-        - multiply: 0.001
+        accuracy_decimals: 2
        
 text_sensor:
   - platform: custom
@@ -194,3 +140,60 @@ button:
 
   - platform: restart
     name: "reboot"
+
+  - platform: template
+    name: Forward
+    id: go_forward
+    on_press:
+      then:
+        - lambda: |-
+            static_cast< RoombaComponent*> (id(my_roomba).get_component(0))->send_command("go_forward");
+
+  - platform: template
+    name: Turn Left
+    id: go_left
+    on_press:
+      then:
+        - lambda: |-
+            static_cast< RoombaComponent*> (id(my_roomba).get_component(0))->send_command("go_left");
+
+  - platform: template
+    name: Turn Right
+    id: go_right
+    on_press:
+      then:
+        - lambda: |-
+            static_cast< RoombaComponent*> (id(my_roomba).get_component(0))->send_command("go_right");
+
+  - platform: template
+    name: Stop
+    id: stop
+    on_press:
+      then:
+        - lambda: |-
+            static_cast< RoombaComponent*> (id(my_roomba).get_component(0))->send_command("stop");
+
+  - platform: template
+    name: Reverse
+    id: go_reverse
+    on_press:
+      then:
+        - lambda: |-
+            static_cast< RoombaComponent*> (id(my_roomba).get_component(0))->send_command("go_reverse");
+
+  - platform: template
+    name: Rotate Left
+    id: rotate_left
+    on_press:
+      then:
+        - lambda: |-
+            static_cast< RoombaComponent*> (id(my_roomba).get_component(0))->send_command("rotate_left");
+
+  - platform: template
+    name: Rotate Right
+    id: rotate_right
+    on_press:
+      then:
+        - lambda: |-
+            static_cast< RoombaComponent*> (id(my_roomba).get_component(0))->send_command("rotate_right");
+

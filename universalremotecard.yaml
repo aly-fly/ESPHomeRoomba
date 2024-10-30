@@ -71,71 +71,64 @@ custom_actions:
   - type: button
     name: forward
     tap_action:
-      action: call-service
-      service: esphome.roomba_command
-      data:
-        command: go_forward
-      target: {}
+      action: toggle
+      target:
+        entity_id: button.roomba_forward
+    show_state: true
     icon: mdi:arrow-up-bold
-    label: Fwd
+    label: Forward
   - type: button
     name: turnleft
     tap_action:
-      action: call-service
-      service: esphome.roomba_command
-      data:
-        command: go_left
-      target: {}
+      action: toggle
+      target:
+        entity_id: button.roomba_turn_left
+    show_state: true
     icon: mdi:arrow-left-top-bold
     label: Turn Left
   - type: button
     name: stop
     tap_action:
-      action: call-service
-      service: esphome.roomba_command
-      data:
-        command: stop
-      target: {}
+      action: toggle
+      target:
+        entity_id: button.roomba_stop
     icon: mdi:pause
+    show_state: true
     label: Stop
   - type: button
     name: turnright
     tap_action:
-      action: call-service
-      service: esphome.roomba_command
-      data:
-        command: go_right
-      target: {}
+      action: toggle
+      target:
+        entity_id: button.roomba_turn_right
+    show_state: true
     icon: mdi:arrow-right-top-bold
     label: Turn Right
   - type: button
     name: rotateleft
     tap_action:
-      action: call-service
-      service: esphome.roomba_command
-      data:
-        command: rotate_left
-      target: {}
+      action: toggle
+      target:
+        entity_id: button.roomba_rotate_left
+    show_state: true
     icon: mdi:rotate-left
     label: Rotate Left
   - type: button
     name: reverse
     tap_action:
-      action: call-service
-      service: esphome.roomba_command
-      data:
-        command: go_reverse
-      target: {}
+      action: toggle
+      target:
+        entity_id: button.roomba_reverse
+    show_state: true
     icon: mdi:arrow-down-bold
     label: Reverse
   - type: button
     name: rotateright
     tap_action:
-      action: call-service
-      service: esphome.roomba_command
-      data:
-        command: rotate_right
-      target: {}
+      action: toggle
+      target:
+        entity_id: button.roomba_rotate_right
+    show_state: true
     icon: mdi:rotate-right
     label: Rotate Right
   - type: button

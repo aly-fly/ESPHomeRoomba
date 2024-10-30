@@ -8,6 +8,8 @@ The Vacuum commands turn on the main brush, side brush, and vacuum when you are 
 
 The displayString function is used to display 4-character ASCII codes on the display (e.g. "FWD " for the go_forward command).
 
+Also added a component-level function called "send_command" to permit the definition of buttons in the Roomba.yaml file that call commands in the ESPHomeRoombaComponentdirectly.  This is to be consistent with other ESPHome robots - it means that the Roomba can be controlled from ESPHome only using the web page, or it can be controlled from Home Assistant, and the ESPHome buttons can be called directly without using the ESPHome service.
+
 New Sensors:
 -----------
 
@@ -50,6 +52,22 @@ The control buttons are placed as button rows on an entities card, and use the t
             command: passive
           target: {}
 ```
+
+Update: the definition of the component-level send_command function means that the buttons can be toggled directly from Home Assistant:
+
+```
+  - type: button
+    name: forward
+    tap_action:
+      action: toggle
+      target:
+        entity_id: button.roomba_forward
+    show_state: true
+    icon: mdi:arrow-up-bold
+    label: Forward
+
+```
+
 
 I also created an input helper template switch for the vacuum functions:
 
