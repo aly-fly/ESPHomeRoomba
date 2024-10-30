@@ -101,27 +101,27 @@ class RoombaComponent : public UARTDevice, public CustomAPIDevice, public Pollin
 			wasCleaning = activity == "Cleaning";
 			wasDocked = activity == "Docked";
 
-			float voltageData = 1.0 * voltage;
+			float voltageData = 0.001 * roundf(voltage * 100) / 100;
 			if (this->voltageSensor->state != voltageData) {
 				this->voltageSensor->publish_state(voltageData);
 			}
 
-			float currentData = 1.0 * current;
+			float currentData = 0.001 * roundf(current * 100) / 100;
 			if (this->currentSensor->state != currentData) {
 				this->currentSensor->publish_state(currentData);
 			}
 
-			float charge = 1.0 * batteryCharge;
+			float charge = 0.001 * roundf(batteryCharge * 100) / 100;
 			if (this->batteryChargeSensor->state != charge) {
 				this->batteryChargeSensor->publish_state(charge);
 			}
 
-			float capacity = 1.0 * batteryCapacity;
+			float capacity = 0.001 * roundf(batteryCapacity * 100) / 100;
 			if (this->batteryCapacitySensor->state != capacity) {
 				this->batteryCapacitySensor->publish_state(capacity);
 			}
 
-			float battery_level = 100.0 * ((1.0 * batteryCharge) / (1.0 * batteryCapacity));
+			float battery_level = 100.0 * ((1.0 * charge) / (1.0 * capacity));
 			if (this->batteryPercentSensor->state != battery_level) {
 				this->batteryPercentSensor->publish_state(battery_level);
 			}
@@ -147,17 +147,23 @@ class RoombaComponent : public UARTDevice, public CustomAPIDevice, public Pollin
 				this->oiModeSensor->publish_state(oiMode);
 			}
 
-            float mainBrushCurrentData = 1.0 * mainBrushCurrent;
+            float mainBrushCurrentData = 0.001 * (mainBrushCurrent * 100) / 100;
             if(this->mainBrushCurrentSensor->state != mainBrushCurrentData) {
 				this->mainBrushCurrentSensor->publish_state(mainBrushCurrentData);
 			}
 
-            float sideBrushCurrentData = 1.0 * sideBrushCurrent;
+            float sideBrushCurrentData = 0.001 * (sideBrushCurrent * 100) / 100;
             if(this->sideBrushCurrentSensor->state != sideBrushCurrentData) {
 				this->sideBrushCurrentSensor->publish_state(sideBrushCurrentData);
 			}
 
 		}
+
+        // this function can be called from the Roomba yaml file as 
+        // static_cast< RoombaComponent*> (id(my_roomba).get_component(0))->send_command("go_forward");
+        void send_command(std::string command) {
+            on_command(command);
+        }
 
 	private:
 		uint8_t brcPin;
@@ -286,6 +292,7 @@ class RoombaComponent : public UARTDevice, public CustomAPIDevice, public Pollin
 			if (command == "clean") {
 				clean();
 			} else if (command == "dock" || command == "return_to_base") {
+                displayString("DOCK");
 				dock();
 			} else if (command == "locate") {
 				locate();
@@ -304,13 +311,13 @@ class RoombaComponent : public UARTDevice, public CustomAPIDevice, public Pollin
 			} else if (command == "go_forward") {
 	            ESP_LOGI("roomba", "go forward");
                 this->speed = 200;
-				drive(this->speed, 0);
                 displayString("FWD ");
+				drive(this->speed, 0);
 			} else if (command == "go_reverse") {
 	            ESP_LOGI("roomba", "go reverse");
                 this->speed = -200;
-				drive(this->speed, 0);
                 displayString("REV ");
+				drive(this->speed, 0);
 			} else if (command == "go_faster") {
 	            ESP_LOGI("roomba", "go faster");
 				alter_speed(100);
@@ -320,44 +327,43 @@ class RoombaComponent : public UARTDevice, public CustomAPIDevice, public Pollin
 			} else if (command == "go_right") {
 	            ESP_LOGI("roomba", "go right");
                 this->speed = 200;
-				drive(this->speed, -250);
                 displayString("RITE");
+				drive(this->speed, -250);
 			} else if (command == "go_left") {
 	            ESP_LOGI("roomba", "go left");
                 this->speed = 200;
-				drive(this->speed, 250);
                 displayString("LEFT");
+				drive(this->speed, 250);
 			} else if (command == "rotate_right") {
 	            ESP_LOGI("roomba", "rotate_right");
                 this->speed = 200;
-				drive(this->speed, 0xFFFF);
                 displayString("ROTR");
+				drive(this->speed, 0xFFFF);
 			} else if (command == "rotate_left") {
 	            ESP_LOGI("roomba", "rotate_left");
                 this->speed = 200;
-				drive(this->speed, 0x0001);
                 displayString("ROTL");
+				drive(this->speed, 0x0001);
 			} else if (command == "stop") {
 	            ESP_LOGI("roomba", "STOP");
 				this->speed = 0;
-				drive(0,0);
                 displayString("STOP");
+				drive(0,0);
 			} else if (command == "drive" || command == "safe") {
 	            ESP_LOGI("roomba", "DRIVE (Safe) mode");
 				this->speed = 0;
 				safeMode();
-                displayString("SAFE");
 			} else if (command == "passive") {
 	            ESP_LOGI("roomba", "passive mode");
 				start_oi();
             } else if (command == "vacuum_on") {
                 ESP_LOGI("roomba", "vacuum_on");
-                vacuum_on();
                 displayString("VAC ");
+                vacuum_on();
             } else if (command == "vacuum_off") {
                 ESP_LOGI("roomba", "vacuum_off");
-                vacuum_off();
                 displayString("OFF ");
+                vacuum_off();
             } else if (command == "reset") {
                 ESP_LOGI("roomba", "reset");
                 reset();
@@ -416,7 +422,8 @@ class RoombaComponent : public UARTDevice, public CustomAPIDevice, public Pollin
             uint8_t asciiValue2 = (int)mystring[2];
             write(asciiValue2);
             uint8_t asciiValue3 = (int)mystring[3];
-            write(asciiValue3);           
+            write(asciiValue3);
+            delay(50);         
         }
 
 		void wake_on_dock() {
