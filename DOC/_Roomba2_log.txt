@@ -1,0 +1,56 @@
+---- reset ---
+bl-start
+STR730
+bootloader id: #x470E5745 66DFEFFF
+bootloader info rev: #xF000
+bootloader rev: #x0001
+2010-05-18-1046-L   
+
+Roomba by iRobot!
+str730
+2016-07-15-1344-L   
+battery-current-zero 260
+
+UI Board SVN Rev: 1371
+
+bbox vars restored!
+languages: english (0) 
+
+
+---- sensors 3 ---
+Charging State 0  / Not charging
+Voltage 15947
+Current 53
+Temperature 21
+Charge 2639
+Capacity 2696
+---- sensors 2 ---
+Distance 0
+Angle 0
+---- sensors 0 ---
+00
+00
+01
+00
+00
+00
+00
+00
+00
+00
+00
+00
+00
+00
+00
+00
+00
+3E
+4B
+FF
+35
+15
+0A
+4F
+0A
+88
